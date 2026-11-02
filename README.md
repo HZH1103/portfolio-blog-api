@@ -2,7 +2,7 @@
 
 This API manages portfolio projects, blog posts, comments, accounts, and contact messages.
 
-Live API: REPLACE_WITH_YOUR_HTTPS_API_URL
+Live API: https://hzh1103-portfolio-blog-api.netlify.app
 
 Front-end origin: https://hzh1103-capstone-web.netlify.app
 
@@ -86,3 +86,8 @@ Login/register share 10 attempts per IP per 15 minutes.
 Contact allows 5 attempts per IP per 15 minutes.
 JSON bodies are limited to 32 KB.
 Limits use memory and reset on restart; this course deployment uses one API instance.
+
+## Deployment
+
+The live API is deployed on Netlify Functions (free tier). The Express application and its settings are unchanged; a small serverless wrapper restores the request path and body before passing each request to the app. The course Render account requires a payment method that is not available, so the same API is published on this equivalent Node.js host.
+
