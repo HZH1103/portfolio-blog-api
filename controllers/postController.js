@@ -1,29 +1,28 @@
-const Post = require('../models/Post');
 const Comment = require('../models/Comment');
+const Post = require('../models/Post');
 
 exports.list = async function (req, res) {
   const posts = await Post.find().populate('author', 'username');
   res.json(posts);
 };
 
-exports.detail = async function (req, res) {
-  const post = await Post.findById(req.params.id).populate('author', 'username');
-  if (!post) {
-    res.status(404);
-    throw new Error('Post not found');
+exports.detail = async function (req, res, next) {
+  try {
+    const post = await Post.findById(req.params.id).populate('author', 'username');
+    if (!post) {
+      res.status(404);
+      throw new Error('Post not found');
+    }
+    const comments = await Comment.find({ post: post._id })
+      .sort({ createdAt: 1 }).populate('author', 'username');
+    res.json({
+      _id: post._id, title: post.title, content: post.content,
+      author: post.author, createdAt: post.createdAt,
+      updatedAt: post.updatedAt, comments: comments
+    });
+  } catch (error) {
+    next(error);
   }
-  const comments = await Comment.find({ post: post._id })
-    .sort({ createdAt: 1 })
-    .populate('author', 'username');
-  res.json({
-    _id: post._id,
-    title: post.title,
-    content: post.content,
-    author: post.author,
-    createdAt: post.createdAt,
-    updatedAt: post.updatedAt,
-    comments: comments
-  });
 };
 
 exports.create = async function (req, res) {

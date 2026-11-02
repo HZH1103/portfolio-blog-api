@@ -15,7 +15,7 @@ exports.create = async function (req, res) {
 };
 
 exports.list = async function (req, res) {
-  res.set('Cache-Control', 'no-store');
   const messages = await Message.find();
+  res.set('Cache-Control', 'no-store');
   res.json(messages);
 };

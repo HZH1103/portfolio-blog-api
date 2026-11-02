@@ -3,7 +3,6 @@ const controller = require('../controllers/postController');
 const protect = require('../middleware/protect');
 const router = express.Router();
 
-// Mount comments before the general post detail route.
 router.use('/:postId/comments', require('./commentRoutes'));
 router.get('/', controller.list);
 router.get('/:id', controller.detail);

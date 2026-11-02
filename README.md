@@ -90,4 +90,3 @@ Limits use memory and reset on restart; this course deployment uses one API inst
 ## Deployment
 
 The live API is deployed on Netlify Functions (free tier). The Express application and its settings are unchanged; a small serverless wrapper restores the request path and body before passing each request to the app. The course Render account requires a payment method that is not available, so the same API is published on this equivalent Node.js host.
-
